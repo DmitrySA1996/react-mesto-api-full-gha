@@ -86,9 +86,8 @@ class API {
 }
 
 const api = new API({
-  url: "localhost:3001",
+  url: "http://localhost:3001",
   headers: {
-    authorization: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOiI2NGE3NjZiMGYzNTA1YTg5NmI4YzU5ZDMiLCJpYXQiOjE2ODg2OTI1ODMsImV4cCI6MTY4OTI5NzM4M30.yzgJkhMpcI3mfO77ZibQj3WmrcCkJXRpyy2CqpclIGY",
     "Content-Type": "application/json",
   }
 });
