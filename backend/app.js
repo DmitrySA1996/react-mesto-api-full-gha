@@ -7,7 +7,7 @@ const routes = require('./src/routes/router');
 const limiter = require('./src/middlewares/rateLimiter');
 const errorHandler = require('./src/middlewares/errorHandler');
 
-const { PORT = 3001, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
+const { PORT = 3000, DB_URL = 'mongodb://127.0.0.1:27017/mestodb' } = process.env;
 const app = express();
 
 const { requestLogger, errorLogger } = require('./src/middlewares/logger');
