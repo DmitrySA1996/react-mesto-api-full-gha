@@ -89,6 +89,8 @@ const api = new API({
   url: "http://localhost:3000",
   headers: {
     "Content-Type": "application/json",
+    "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
   }
 });
 
