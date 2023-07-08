@@ -86,7 +86,7 @@ class API {
 }
 
 const api = new API({
-  url: "http://localhost:3001",
+  url: "http://localhost:3000",
   headers: {
     "Content-Type": "application/json",
   }
