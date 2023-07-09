@@ -8,7 +8,7 @@ import ImagePopup from "./ImagePopup.js";
 import EditProfilePopup from "./EditProfilePopup.js";
 import EditAvatarPopup from "./EditAvatarPopup.js";
 import AddPlacePopup from "./AddPlacePopup.js";
-import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate, } from "react-router-dom";
 import ProtectedRoute from "./ProtectedRoute.js"
 import Register from "./Register.js"
 import Login from "./Login.js"
@@ -19,7 +19,6 @@ import api from "../utils/API";
 import * as AuthApi from "../utils/AuthApi.js"
 
 function App() {
-
   const [isLoggedIn, setIsLoggedIn] = React.useState(false)
   const [email, setEmail] = React.useState("")
   const navigate = useNavigate()
@@ -47,6 +46,7 @@ function App() {
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
+    
     Promise.all([api.getRealUserInfo(), api.getInitialCards()])
       .then(([userProfile, cards]) => {
         setCurrentUser(userProfile);
@@ -54,6 +54,26 @@ function App() {
       })
       .catch((error) => console.log(`Ошибка: ${error}`));
   }, []);
+
+  React.useEffect(() => {
+    const jwt = localStorage.getItem("jwt")
+
+    if (jwt) {
+      AuthApi
+        .checkToken(jwt)
+        .then((res) => {
+          setIsLoggedIn(true)
+          setEmail(res.data.email)
+          navigate("/", { replace: true })
+        })
+        .catch((err) => {
+          if (err.status === 401) {
+            console.log("401 — Токен не передан или передан не в том формате")
+          }
+          console.log("401 — Переданный токен некорректен")
+        })
+    }
+  }, [navigate])
 
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
@@ -127,31 +147,11 @@ function App() {
       .catch((error) => console.log(`Ошибка: ${error}`))
   }
 
-  React.useEffect(() => {
-    const jwt = localStorage.getItem("jwt")
-
-    if (jwt) {
-      AuthApi
-        .checkToken(jwt)
-        .then((res) => {
-          setIsLoggedIn(true)
-          setEmail(res.data.email)
-          navigate("/", { replace: true })
-        })
-        .catch((err) => {
-          if (err.status === 401) {
-            console.log("401 — Токен не передан или передан не в том формате")
-          }
-          console.log("401 — Переданный токен некорректен")
-        })
-    }
-  }, [navigate])
-
   function handleSignOut() {
     localStorage.removeItem("jwt")
     setIsLoggedIn(false)
     setIsMobileMenuOpen(false)
-    navigate("/sign-in", { replace: true })
+    navigate("/signin", { replace: true })
     setIsMobileMenuOpen(false)
   }
 
@@ -165,7 +165,7 @@ function App() {
     AuthApi
       .login(email, password)
       .then((res) => {
-        localStorage.setItem("jwt", res.token)
+        localStorage.setItem("jwt", res.jwt)
         setIsLoggedIn(true)
         setEmail(email)
         navigate("/", { replace: true })
@@ -185,7 +185,7 @@ function App() {
       .then(() => {
         setInfoToolTipPopupOpen(true)
         setIsSuccess(true)
-        navigate("/sign-in", { replace: true })
+        navigate("/signin", { replace: true })
       })
       .catch((err) => {
         if (err.status === 400) {
@@ -218,13 +218,13 @@ function App() {
               onAddPlace={handleAddPlaceClick}
               onCardClick={setSelectedCard}
               onCardLike={handleCardLike}
-              onCardDelete ={handleCardDelete}
+              onCardDelete={handleCardDelete}
               cards={cards}
               element={Main}
             />} />
-            <Route path="/sign-in" element={<Login onLogin={handleLoginSubmit} replace/>} />
-            <Route path="/sign-up" element={<Register onRegister={handleRegisterSubmit} replace/>} />
-            <Route path="/" element={isLoggedIn ? <Navigate to="" /> : <Navigate to="sign-in" />} />
+            <Route path="/signin" element={<Login onLogin={handleLoginSubmit} replace />} />
+            <Route path="/signup" element={<Register onRegister={handleRegisterSubmit} replace />} />
+            <Route path="/" element={isLoggedIn ? <Navigate to="" /> : <Navigate to="signin" />} />
           </Routes>
 
           {isLoggedIn && <Footer />}

@@ -18,13 +18,13 @@ function Header(props) {
         <div className="header__main">
           <img className="header__logo" src={logoMestoHeader} alt="Место" />
 
-          {location.pathname === "/sign-in" && (
-            <Link to="/sign-up" className="header__link">
+          {location.pathname === "/signin" && (
+            <Link to="/signup" className="header__link">
               Регистрация
             </Link>
           )}
-          {location.pathname === "/sign-up" && (
-            <Link to="/sign-in" className="header__link">
+          {location.pathname === "/signup" && (
+            <Link to="/signin" className="header__link">
               Войти
             </Link>
           )}
@@ -32,7 +32,7 @@ function Header(props) {
             <div className="header__user-info">
               <p className="header__email">{props.email}</p>
               <Link
-                to="/sign-in"
+                to="/signin"
                 className="header__link"
                 onClick={props.onSignOut}
               >
