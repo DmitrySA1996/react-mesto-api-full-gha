@@ -3,6 +3,8 @@ const mongoose = require('mongoose');
 const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const { errors } = require('celebrate');
+const cookieParser = require('cookie-parser');
+const cors = require('cors');
 const routes = require('./src/routes/router');
 const limiter = require('./src/middlewares/rateLimiter');
 const errorHandler = require('./src/middlewares/errorHandler');
@@ -12,6 +14,12 @@ const app = express();
 
 const { requestLogger, errorLogger } = require('./src/middlewares/logger');
 
+app.use(cookieParser());
+app.use(cors({
+  origin: ['http://localhost:3001'],
+  credentials: true,
+  methods: ['GET', 'PUT', 'POST', 'DELETE', 'PATCH'],
+}));
 app.use(helmet());
 app.disable('x-powered-by');
 app.use(express.json());
