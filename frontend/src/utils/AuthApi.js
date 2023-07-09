@@ -1,4 +1,4 @@
-const url = "https://auth.nomoreparties.co"
+const url = "http://localhost:3000"
 
 function checkResponse(res) {
   if (res.ok) {
@@ -10,6 +10,7 @@ function checkResponse(res) {
 export const register = (email, password) => {
   return fetch(`${url}/signup`, {
     method: "POST",
+    credentials: 'include',
     headers: {
       Accept: "application/json",
       "Content-Type": "application/json",
@@ -24,6 +25,7 @@ export const register = (email, password) => {
 export const login = (email, password) => {
   return fetch(`${url}/signin`, {
     method: "POST",
+    credentials: 'include',
     headers: {
       "Content-Type": "application/json",
     },
@@ -34,8 +36,8 @@ export const login = (email, password) => {
   })
     .then(checkResponse)
     .then((data) => {
-      if (data.token) {
-        localStorage.setItem("jwt", data.token)
+      if (data.jwt) {
+        localStorage.setItem("jwt", data.jwt)
         return data
       }
     })
@@ -44,9 +46,10 @@ export const login = (email, password) => {
 export const checkToken = (jwt) => {
   return fetch(`${url}/users/me`, {
     method: "GET",
+    credentials: 'include',
     headers: {
       "Content-Type": "application/json",
-      Authorization: `Bearer ${jwt}`,
+      Authorization: `${jwt}`,
     },
   }).then(checkResponse)
 }

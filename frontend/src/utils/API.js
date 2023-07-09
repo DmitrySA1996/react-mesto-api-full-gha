@@ -16,6 +16,7 @@ class API {
     const response = await fetch(`${this._url}/users/me`, {
       method: "GET",
       headers: this._headers,
+      credentials: 'include',
     });
     return this._handleSendingRequest(response);
   }
@@ -23,6 +24,7 @@ class API {
   async getInitialCards() {
     const response = await fetch(`${this._url}/cards`, {
       method: "GET",
+      credentials: 'include',
       headers: this._headers,
     });
     return this._handleSendingRequest(response);
@@ -36,6 +38,7 @@ class API {
         name: data.name,
         about: data.about,
       }),
+      credentials: 'include',
     });
     return this._handleSendingRequest(response);
   }
@@ -45,6 +48,7 @@ class API {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify(data),
+      credentials: 'include',
     });
     return this._handleSendingRequest(response);
   }
@@ -53,6 +57,7 @@ class API {
     const response = await fetch(`${this._url}/cards/${cardId}/likes`, {
       method: "PUT",
       headers: this._headers,
+      credentials: 'include',
     });
     return this._handleSendingRequest(response);
   }
@@ -61,6 +66,7 @@ class API {
     const response = await fetch(`${this._url}/cards/${cardId}`, {
       method: "DELETE",
       headers: this._headers,
+      credentials: 'include',
     });
     return this._handleSendingRequest(response);
   }
@@ -69,6 +75,7 @@ class API {
     const response = await fetch(`${this._url}/cards/${cardId}/likes`, {
       method: "DELETE",
       headers: this._headers,
+      credentials: 'include',
     });
     return this._handleSendingRequest(response);
   }
@@ -80,6 +87,7 @@ class API {
       body: JSON.stringify({
         avatar: data.avatar,
       }),
+      credentials: 'include',
     });
     return this._handleSendingRequest(response);
   }
@@ -88,9 +96,8 @@ class API {
 const api = new API({
   url: "http://localhost:3000",
   headers: {
+    Authorization: `${localStorage.getItem('jwt')}`,
     "Content-Type": "application/json",
-    "Access-Control-Allow-Methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "Access-Control-Allow-Headers": "Origin, X-Requested-With, Content-Type, Accept",
   }
 });
 
