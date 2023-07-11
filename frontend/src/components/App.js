@@ -63,7 +63,7 @@ function App() {
         .checkToken(jwt)
         .then((res) => {
           setIsLoggedIn(true)
-          setEmail(res.user.email)
+          setEmail(res.email)
           navigate("/", { replace: true })
         })
         .catch((err) => {
@@ -84,7 +84,7 @@ function App() {
   }
 
   function handleCardLike(card) {
-    const isLiked = card.likes.some((user) => user._id === currentUser._id)
+    const isLiked = card.likes.some((id) => id === currentUser._id)
 
     if (isLiked) {
       api
