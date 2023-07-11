@@ -47,7 +47,10 @@ class API {
     const response = await fetch(`${this._url}/cards`, {
       method: "POST",
       headers: this._headers,
-      body: JSON.stringify(data),
+      body: JSON.stringify({
+        name: data.name,
+        link: data.link,
+      }),
       credentials: 'include',
     });
     return this._handleSendingRequest(response);
@@ -96,7 +99,7 @@ class API {
 const api = new API({
   url: "http://localhost:3000",
   headers: {
-    Authorization: `${localStorage.getItem('jwt')}`,
+    Authorization : `Bearer ${localStorage.getItem("jwt")}`,
     "Content-Type": "application/json",
   }
 });

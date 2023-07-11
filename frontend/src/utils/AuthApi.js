@@ -43,13 +43,15 @@ export const login = (email, password) => {
     })
 }
 
-export const checkToken = (jwt) => {
+export const checkToken = (token) => {
   return fetch(`${url}/users/me`, {
-    method: "GET",
-    credentials: 'include',
+    method: 'GET',
     headers: {
-      "Content-Type": "application/json",
-      Authorization: `${jwt}`,
-    },
-  }).then(checkResponse)
-}
+      'Accept': 'application/json',
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${token}`,
+    }
+  })
+    .then(res => res.json())
+    .then(data => data)
+} 
