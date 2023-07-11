@@ -56,7 +56,7 @@ function AuthForm({ title, buttonText, onSubmit, isSubmitting }) {
             {title === "Регистрация" ? "Уже зарегистрированы?" : ""}
           </p>
           <Link
-            to={title === "Регистрация" ? "/sign-in" : "/sign-up"}
+            to={title === "Регистрация" ? "/signin" : "/signup"}
             className="auth__sign-up_link"
           >
             {title === "Регистрация" ? "Войти" : ""}

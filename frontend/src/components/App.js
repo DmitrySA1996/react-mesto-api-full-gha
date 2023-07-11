@@ -46,7 +46,7 @@ function App() {
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-    
+
     Promise.all([api.getRealUserInfo(), api.getInitialCards()])
       .then(([userProfile, cards]) => {
         setCurrentUser(userProfile);
@@ -56,14 +56,14 @@ function App() {
   }, []);
 
   React.useEffect(() => {
-    const jwt = localStorage.getItem("jwt")
+    if (localStorage.getItem('jwt')) {
+      const jwt = localStorage.getItem('jwt');
 
-    if (jwt) {
       AuthApi
         .checkToken(jwt)
         .then((res) => {
           setIsLoggedIn(true)
-          setEmail(res.data.email)
+          setEmail(res.user.email)
           navigate("/", { replace: true })
         })
         .catch((err) => {
@@ -74,7 +74,7 @@ function App() {
         })
     }
   }, [navigate])
-
+  
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);

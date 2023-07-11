@@ -14,7 +14,7 @@ function Main({
   onCardDelete
 }) {
 
-  const currentUser = React.useContext(CurrentUserContext);
+  const currentUser = React.useContext(CurrentUserContext).user;
 
   return (
     <main className="content">
@@ -53,7 +53,7 @@ function Main({
       </section>
       <section className="elements">
         <ul className="elements__cards">
-          {cards.map((card) => (
+          {cards.data.map((card) => (
             <Card
               card={card}
               onCardClick={onCardClick}
