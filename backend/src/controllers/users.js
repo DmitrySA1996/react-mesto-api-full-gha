@@ -72,7 +72,7 @@ module.exports.createUser = (req, res, next) => {
 module.exports.getUsers = (_, res, next) => {
   User
     .find({})
-    .then((users) => res.send({ users }))
+    .then((users) => res.send(users))
     .catch(next);
 };
 
@@ -84,7 +84,7 @@ module.exports.getUserId = (req, res, next) => {
     .findById(id)
 
     .then((user) => {
-      if (user) return res.send({ user });
+      if (user) return res.send(user);
 
       throw new NotFoundError('Пользователь с таким id не найден');
     })
@@ -104,7 +104,7 @@ module.exports.currentUserInfo = (req, res, next) => {
   User
     .findById(userId)
     .then((user) => {
-      if (user) return res.send({ user });
+      if (user) return res.send(user);
 
       throw new NotFoundError('Пользователь с таким id не найден');
     })
@@ -135,7 +135,7 @@ module.exports.updateProfile = (req, res, next) => {
       },
     )
     .then((user) => {
-      if (user) return res.send({ user });
+      if (user) return res.send(user);
 
       throw new NotFoundError('Пользователь с таким id не найден');
     })
@@ -165,7 +165,7 @@ module.exports.updateAvatar = (req, res, next) => {
       },
     )
     .then((user) => {
-      if (user) return res.send({ user });
+      if (user) return res.send(user);
 
       throw new NotFoundError('Пользователь с таким id не найден');
     })

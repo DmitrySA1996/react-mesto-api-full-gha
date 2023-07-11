@@ -9,7 +9,7 @@ module.exports.getInitialCards = (_, res, next) => {
   Card
     .find({})
     .populate(['owner', 'likes'])
-    .then((cards) => res.send({ data: cards }))
+    .then((cards) => res.send(cards))
     .catch(next);
 };
 
@@ -80,7 +80,7 @@ module.exports.likeCard = (req, res, next) => {
       },
     )
     .then((card) => {
-      if (card) return res.send({ data: card });
+      if (card) return res.send(card);
 
       throw new NotFoundError('Карточка с указанным id не найдена');
     })
@@ -111,7 +111,7 @@ module.exports.dislikeCard = (req, res, next) => {
       },
     )
     .then((card) => {
-      if (card) return res.send({ data: card });
+      if (card) return res.send(card);
 
       throw new NotFoundError('Данные по указанному id не найдены');
     })
