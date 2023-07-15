@@ -22,9 +22,9 @@ try {
   }
 }
 
-const checkToken = (token) => jwt.verify(token, NODE_ENV === 'production' ? SECRET_KEY : 'key');
+const checkToken = (token) => jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'key');
 
-const signToken = (payload) => jwt.sign(payload, NODE_ENV === 'production' ? SECRET_KEY : 'key', { expiresIn: '7d' });
+const signToken = (payload) => jwt.sign(payload, NODE_ENV === 'production' ? JWT_SECRET : 'key', { expiresIn: '7d' });
 
 module.exports = {
   checkToken,
