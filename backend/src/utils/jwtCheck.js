@@ -1,8 +1,13 @@
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 const { NODE_ENV, JWT_SECRET } = process.env;
 
+const checkToken = (token) => jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'key');
+
+const signToken = (id) => jwt.sign(id, NODE_ENV === 'production' ? JWT_SECRET : 'key', { expiresIn: '7d' });
+
 try {
-  const payload = jwt.verify(NODE_ENV, JWT_SECRET);
+  checkToken;
   console.log('\x1b[31m%s\x1b[0m', `
 Надо исправить. В продакшне используется тот же
 секретный ключ, что и в режиме разработки.
@@ -21,11 +26,6 @@ try {
     );
   }
 }
-
-const checkToken = (token) => jwt.verify(token, NODE_ENV === 'production' ? JWT_SECRET : 'key');
-
-const signToken = (payload) => jwt.sign(payload, NODE_ENV === 'production' ? JWT_SECRET : 'key', { expiresIn: '7d' });
-
 module.exports = {
   checkToken,
   signToken,
