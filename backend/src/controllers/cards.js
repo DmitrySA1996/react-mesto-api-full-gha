@@ -19,7 +19,7 @@ module.exports.createCard = (req, res, next) => {
   const { userId } = req.user;
 
   Card
-    .create({ name, link, userId })
+    .create({ name, link, owner: userId })
     .then((card) => res.status(201).send(card))
     .catch((err) => {
       if (err.name === 'ValidationError') {
@@ -103,7 +103,7 @@ module.exports.dislikeCard = (req, res, next) => {
       cardId,
       {
         $pull: {
-          likes: userId,
+          userId,
         },
       },
       {
