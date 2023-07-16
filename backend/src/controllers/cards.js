@@ -8,7 +8,7 @@ const ForbiddenError = require('../errors/ForbiddenError');
 module.exports.getInitialCards = (_, res, next) => {
   Card
     .find({})
-    .populate(['owner', 'likes'])
+    .populate()
     .then((cards) => res.send(cards))
     .catch(next);
 };
