@@ -46,16 +46,6 @@ function App() {
   const [cards, setCards] = React.useState([]);
 
   React.useEffect(() => {
-
-    Promise.all([api.getRealUserInfo(), api.getInitialCards()])
-      .then(([userProfile, cards]) => {
-        setCurrentUser(userProfile);
-        setCards(cards);
-      })
-      .catch((error) => console.log(`Ошибка: ${error}`));
-  }, []);
-
-  React.useEffect(() => {
     if (localStorage.getItem('jwt')) {
       const jwt = localStorage.getItem('jwt');
 
@@ -74,7 +64,17 @@ function App() {
         })
     }
   }, [navigate])
-  
+
+  React.useEffect(() => {
+
+    Promise.all([api.getRealUserInfo(), api.getInitialCards()])
+      .then(([userProfile, cards]) => {
+        setCurrentUser(userProfile);
+        setCards(cards);
+      })
+      .catch((error) => console.log(`Ошибка: ${error}`));
+  }, []);
+
   function closeAllPopups() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
