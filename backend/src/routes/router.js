@@ -7,11 +7,11 @@ const auth = require('../middlewares/auth');
 
 const NotFoundError = require('../errors/NotFoundError');
 
-router.use('/', registerRoutes);
-router.use('/', loginRoutes);
+router.use('/api', registerRoutes);
+router.use('/api', loginRoutes);
 router.use(auth);
-router.use('/users', userRoutes);
-router.use('/cards', cardRoutes);
+router.use('/api/users', userRoutes);
+router.use('/api/cards', cardRoutes);
 
 router.use((req, res, next) => next(new NotFoundError('Страницы по запрошенному URL не существует')));
 
