@@ -23,6 +23,12 @@ app.use(helmet());
 app.disable('x-powered-by');
 app.use(express.json());
 
+app.get('/crash-test', () => {
+  setTimeout(() => {
+    throw new Error('Сервер сейчас упадёт');
+  }, 0);
+});
+
 app.use(requestLogger);
 
 app.use(routes);
