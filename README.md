@@ -11,6 +11,6 @@
 
 IP-адрес 51.250.11.225
 
-Frontend https://...
+Frontend https://mestofull.dmitrys.nomoredomains.xyz/
 
-Backend https://...
+Backend https://api.senchenkoda.nomoredomains.xyz/
