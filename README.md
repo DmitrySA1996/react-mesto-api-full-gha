@@ -9,7 +9,7 @@
 
 ## Ссылки на проект
 
- IP 51.250.11.225
+IP 51.250.11.225
 
 Frontend https://mestofull.dmitrys.nomoredomains.xyz
 
